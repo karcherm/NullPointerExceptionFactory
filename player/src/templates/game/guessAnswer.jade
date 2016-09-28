@@ -1,0 +1,3 @@
+.well
+    .form-group(ng-repeat="answer in answers")
+        button.btn.btn-primary.btn-block(ng-click="guessAnswer($index)") {{answer.answer}}

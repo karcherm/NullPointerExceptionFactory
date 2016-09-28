@@ -1,0 +1,5 @@
+form.well
+    .form-group
+        input.form-control(placeholder="Your Answer" ng-model="writtenAnswer" ng-maxlength="40" required)
+    .form-group
+        button.btn.btn-success.btn-block(ng-click="writeAnswer(writtenAnswer)") #[i.fa.fa-check]  Send
