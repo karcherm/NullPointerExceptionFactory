@@ -1,1 +1,15 @@
-npm install -g bower gulp && npm install --save-dev bower gulp gulp-jade gulp-less gulp-plumber gulp-sourcemaps gulp-uglify gulp-concat gulp-watch event-stream && bower install
+call npm install -g bower gulp
+
+cd server
+call npm install
+cd ..
+
+cd player
+call npm install
+call gulp compile
+cd ..
+
+cd screen
+call npm install
+call gulp compile
+cd ..
