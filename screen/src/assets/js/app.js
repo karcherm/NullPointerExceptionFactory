@@ -49,7 +49,8 @@ var app = angular.module("nullPointerExceptionFactoryScreen", [
         })
         .state("game.wait", {
             url: "/wait",
-            templateUrl: "templates/game/waitPlayers.html"
+            templateUrl: "templates/game/waitPlayers.html",
+            controller: "startController"
         })
         .state("game.write", {
             url: "/write",
