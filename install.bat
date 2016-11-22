@@ -1,4 +1,4 @@
-call npm install -g bower gulp
+call npm install -g bower gulp http-server
 
 cd server
 call npm install
