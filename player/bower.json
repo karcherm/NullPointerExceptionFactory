@@ -1,5 +1,5 @@
 {
-  "name": "NullPointerExceptionFactory Player",
+  "name": "nullpointerexceptionfactory-player",
   "version": "1.0.0",
   "authors": [
     "Johannes Kümmel <jkymmel@gmail.com>"
@@ -10,9 +10,25 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "dest"
   ],
   "dependencies": {
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "bootstrap-theme-bootswatch-flatly": "^1.0.2",
+    "bootstrap": "^3.3.7",
+    "jquery-ui": "^1.12.1",
+    "socket.io-client": "^1.6.0",
+    "jquery": "^3.1.1",
+    "angular": "angularjs#^1.5.9",
+    "angular-ui-utils": "0.1.1",
+    "angular-bootstrap": "1.3.3",
+    "a0-angular-storage": "^0.0.15",
+    "angular-ui-router": "ui-router#^0.2",
+    "font-roboto": "^0.0.2",
+    "font-awesome": "^4.7.0",
+    "lato-font": "^2.0.0",
+    "angular-socket-io": "^0.7.0"
+  }
 }

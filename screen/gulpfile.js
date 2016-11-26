@@ -5,6 +5,8 @@ var plumber = require("gulp-plumber");
 var sourcemaps = require("gulp-sourcemaps");
 var uglify = require("gulp-uglify");
 var concat = require("gulp-concat");
+var filter = require("gulp-filter");
+var replace = require("gulp-replace");
 var watch = require("gulp-watch");
 var es = require('event-stream');
 //var jslint = require("gulp-jslint");
@@ -16,6 +18,8 @@ var dir = {
     dest: "dest/",
     bower: "bower_components/"
 };
+
+var usecdn = true;
 
 gulp.task("js", function() {
     es.concat(
@@ -45,7 +49,8 @@ gulp.task("jade", function () {
             .pipe(plumber())
             .pipe(jade({
                 pretty: true,
-                doctype: "HTML"
+                doctype: "HTML",
+                locals: { cdn: usecdn }
             }))
             .pipe(gulp.dest(dir.dest + locations[i].dest));
     }
@@ -66,14 +71,31 @@ gulp.task("css", function() {
 });
 
 gulp.task("bower_components", function() {
-    gulp.src(dir.src + "../bower_components/**/*")
-        .pipe(gulp.dest(dir.dest + "bower_components/"));
+    if (!usecdn)
+    {
+        bootswatchfilter = filter(dir.bower + "/bootstrap-theme-bootswatch-flatly/css/*.css",
+                                  {restore: true});
+        gulp.src(dir.bower + "/**/*")
+            .pipe(bootswatchfilter)
+            .pipe(replace("//fonts.googleapis.com/css?family=Lato:400,700,400italic",
+                          "../../lato-font/css/lato-font.min.css"))
+            .pipe(bootswatchfilter.restore)
+            .pipe(gulp.dest(dir.dest + "bower_components/"));
+    }
+});
+
+gulp.task("fallback", function() {
+    if (!usecdn)
+    {
+        gulp.src(dir.src + "fallback/**/*")
+            .pipe(gulp.dest(dir.dest + "fallback/"));
+    }
 });
 
 
-gulp.task("compile", ["jade", "js", "less", "css", "bower_components"]);
+gulp.task("compile", ["jade", "js", "less", "css", "bower_components", "fallback"]);
 
-gulp.task("default", ["jade", "js", "less", "css", "bower_components"], function() {
+gulp.task("default", ["jade", "js", "less", "css", "bower_components", "fallback"], function() {
     gulp.watch(dir.src + dir.assets + "js/**/*.js", function() {
         gulp.run("js");
     });
@@ -88,5 +110,8 @@ gulp.task("default", ["jade", "js", "less", "css", "bower_components"], function
     });
     gulp.watch(dir.src + "../bower_components/**/*", function() {
         gulp.run("bower_components");
+    });
+    gulp.watch(dir.src + "../fallback/**/*", function() {
+        gulp.run("fallback");
     });
 });
